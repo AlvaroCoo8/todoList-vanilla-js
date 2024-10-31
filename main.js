@@ -1,6 +1,7 @@
 import "./style.css";
 
 const task = [];
+let taskId = 1;
 
 const initialize = () => {
   const body = document.querySelector("body");
@@ -31,23 +32,24 @@ const addTask = (event) => {
   event.preventDefault();
 
   if (input.value == "") return;
-  createTask(input.value);
 
-  task.push(input.value);
+  const newTask = { id: taskId++, name: input.value };
+  createTask(newTask);
+  task.push(newTask);
 
   pendingTask.style.display = task.length < 0 ? "block" : "none";
   numberTask.textContent = task.length;
   input.value = "";
 };
 
-const createTask = (name) => {
+const createTask = (task) => {
   const ulContainer = document.querySelector("ul");
   const li = document.createElement("li");
   const p = document.createElement("p");
   const span = document.createElement("span");
   const button = document.createElement("button");
 
-  span.textContent = name;
+  span.textContent = task.name;
   button.className = "btn-delete";
   button.textContent = "X";
 
