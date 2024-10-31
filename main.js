@@ -1,5 +1,7 @@
 import './style.css'
 
+const task = []
+
 const initialize = () => {
 
   const body = document.querySelector("body")
@@ -22,15 +24,20 @@ const initialize = () => {
 
 } 
 
-
 const addTask = (event) => { 
   
   const input = document.querySelector("input")
-
-  event.preventDefault() 
-  createTask(input.value)
-  input.value = ""
+  const pendingTask = document.querySelector(".empty")
+  const divNumberTask = document.querySelector(".task-count")
+  const numberTask = divNumberTask.querySelectorAll("span")[1];
   
+  event.preventDefault() 
+  createTask(input.value)  
+  task.push(input.value)
+  
+  pendingTask.style.display = task.length < 0 ? "block" : "none";
+  numberTask.textContent = task.length 
+  input.value = ""
 }
 
 const createTask = (name) => {
