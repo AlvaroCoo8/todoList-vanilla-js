@@ -1,6 +1,6 @@
 import "./style.css";
 
-const task = [];
+let task = [];
 let taskId = 1;
 
 const initialize = () => {
@@ -53,10 +53,26 @@ const createTask = (task) => {
   button.className = "btn-delete";
   button.textContent = "X";
 
+  button.addEventListener("click", () => deleteTask(task.id, li))
+
   p.appendChild(span);
   li.appendChild(p);
   li.appendChild(button);
   ulContainer.appendChild(li);
+};
+
+const deleteTask = (id, li) => {
+
+  const pendingTask = document.querySelector(".empty");
+  const divNumberTask = document.querySelector(".task-count");
+  const numberTask = divNumberTask.querySelectorAll("span")[1];
+  const ulContainer = document.querySelector("ul");
+  ulContainer.removeChild(li);
+
+  task = task.filter((t) => t.id !== id);
+ 
+  pendingTask.style.display = task.length > 0 ? "none" : "block" ;
+  numberTask.textContent = task.length;
 };
 
 document.addEventListener("DOMContentLoaded", () => initialize());
