@@ -31,7 +31,7 @@ const addTask = (event) => {
 
   event.preventDefault();
 
-  if (input.value == "") return;
+  if (input.value.trim() === "") return;
 
   const newTask = { id: taskId++, name: input.value };
   createTask(newTask);
@@ -53,7 +53,7 @@ const createTask = (task) => {
   button.className = "btn-delete";
   button.textContent = "X";
 
-  button.addEventListener("click", () => deleteTask(task.id, li))
+  button.addEventListener("click", () => deleteTask(task.id, li));
 
   p.appendChild(span);
   li.appendChild(p);
@@ -62,7 +62,6 @@ const createTask = (task) => {
 };
 
 const deleteTask = (id, li) => {
-
   const pendingTask = document.querySelector(".empty");
   const divNumberTask = document.querySelector(".task-count");
   const numberTask = divNumberTask.querySelectorAll("span")[1];
@@ -70,8 +69,8 @@ const deleteTask = (id, li) => {
   ulContainer.removeChild(li);
 
   task = task.filter((t) => t.id !== id);
- 
-  pendingTask.style.display = task.length > 0 ? "none" : "block" ;
+
+  pendingTask.style.display = task.length > 0 ? "none" : "block";
   numberTask.textContent = task.length;
 };
 
